@@ -3,12 +3,11 @@ const mongoose = require('mongoose');
 exports.connect = function () {
   mongoose.connect('mongodb://localhost/upsilon');
 
-  var db = mongoose.connection;
-  db.on('error', function(error){
+  mongoose.connection.on('error', function(error){
     console.log('error connecting', error);
   });
 
-  db.once('open', function(){
+  mongoose.connection.once('open', function(){
     console.log('connected to mongo');
   });
 };
