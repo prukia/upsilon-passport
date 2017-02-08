@@ -8,3 +8,11 @@ const userSchema = new mongoose.Schema({
 const User = mongoose.model('User', userSchema);
 
 module.exports = User;
+
+// inside header
+// content:type application/json
+// inside body
+// {
+//   "username": "test",
+//   "password": "1234"
+// }
