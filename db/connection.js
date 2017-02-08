@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 exports.connect = function () {
-  mongoose.connect('mongodb://localhost/rho');
+  mongoose.connect('mongodb://localhost/upsilon');
 
   var db = mongoose.connection;
   db.on('error', function(error){
