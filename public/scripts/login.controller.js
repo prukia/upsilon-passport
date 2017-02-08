@@ -12,6 +12,7 @@ function LoginController($http, $location) {
       password: ctrl.password
     }).then(function(response){
       console.log(response);
+      $location.path('/home');
     }, function(error) {
       console.log('error loggin in', error);
     });

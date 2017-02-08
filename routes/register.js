@@ -25,7 +25,15 @@ router.post('/', function (req, res){
         console.log('Created new user');
         res.sendStatus(201);
 
-  //@TODO create a login session for the user 
+  //@TODO create a login session for the user
+  
+  req.login(user, function (err){
+    if(err){
+      console.log('Error logging in newly registered user', err);
+      return res.sendStatus(500);
+    }
+  });
+      res.sendStatus(201);
       }
     });
 
