@@ -23,10 +23,10 @@ router.post('/', function (req, res){
         res.sendStatus(500);
       } else {
         console.log('Created new user');
-        res.sendStatus(201);
+      
 
   //@TODO create a login session for the user
-  
+
   req.login(user, function (err){
     if(err){
       console.log('Error logging in newly registered user', err);
