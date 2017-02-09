@@ -1,13 +1,7 @@
-const mongoose = require('mongoose');
+var pg = require('pg');
 
-exports.connect = function () {
-  mongoose.connect('mongodb://localhost/upsilon');
+var pool = new pg.Pool({
+  database: 'passport'
+});
 
-  mongoose.connection.on('error', function(error){
-    console.log('error connecting', error);
-  });
-
-  mongoose.connection.once('open', function(){
-    console.log('connected to mongo');
-  });
-};
+module.exports = pool;
