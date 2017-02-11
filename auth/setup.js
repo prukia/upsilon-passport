@@ -17,59 +17,29 @@ passport.serializeUser(function(user, done){
 
 });
 // userID to user
-passport.deserializeUser(function (id, done){
-  User.findById(id, function(err,user){
-    console.log('Deserializing user');
-    if (err){
+passport.deserializeUser(function(id, done){
+  console.log('Deserializing User');
+  User.findById(id, function(err, user){
+    if (err) {
       console.log('Error deserializing User', err);
       return done(err);
     }
 
     done(null, user);
   })
-
 });
 
 //call back we are providing to passport. passport passes the params
-function findAndComparePassword (username, password, done){
-  console.log('Finding and comparing passwords');
-  User.findOne({username: username}, function (err,user){
-    if(err){
-      console.log('Error finding user by username', err);
-      return done(err);
+function findAndComparePassword(username, password, done) {
+  console.log("Finding and comparing passwords");
+  User.findAndComparePassword(username, password).then(function(result){
+    console.log('result', result);
+    if (result.match) {
+      done(null, result.user);
+    } else {
+      done(null, false);
     }
-
-    if(user){
-      console.log('found a user with username', username);
-      user.comparePassword(password, function(err, match){
-        if(err){
-          done(err);
-          console.log('Error comparing passwords');
-        }else{
-          if(match){
-            done(null, user);
-            console.log('passwords matched');
-          }else{
-            done(null, false);
-            console.log('passwords did not match');
-          }
-        }
-      });
-
-      // if (user.password === password) {
-      //   console.log('Passwords matched');
-      //
-      //   //passing the user object here indicates to passport
-      //   //that the user passed our validation and should be logged in
-      //   return done(null, user);
-      // }
-    }else{
-      console.log('User was not found');
-        done(null, false);
-    }
-    //we found corrsponding user but their passwords do not matched
-    //false means the user did not pass validation and shoulf not be logged in
-
+  }).catch(function(err){
+    done(err);
   });
-
 }
